@@ -1,0 +1,147 @@
+/* Container for the wallet connector */
+.wallet-connector {
+    font-family: 'Inter', sans-serif;
+    position: relative;
+  }
+  .wallet-button {
+    color: white;
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+  
+  .wallet-button-connected {
+    background-color: #2edc7c;
+  }
+  
+  .wallet-button-disconnected {
+    background-color: #9d3eef;
+  }
+  
+  /* Dropdown menu */
+  .wallet-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #1F2937;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 240px;
+    z-index: 10;
+  }
+  .wallet-option {
+    padding: 12px 16px;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.2s ease;
+    border-radius: 8px;
+    margin: 4px;
+  }
+  
+  .wallet-option:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Connected wallet info section */
+  .connected-info {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .address-display {
+    color: white;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  
+  /* Disconnect button */
+  .disconnect-button {
+    background-color: #EF4444;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  .disconnect-button:hover {
+    background-color: #DC2626;
+  }
+  
+  /* App container */
+  .app-container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  /* Header */
+  .app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .app-title {
+    margin: 0;
+  }
+  
+  /* Ethsend component */
+  .eth-send-container {
+    background-color: #1F2937;
+    padding: 24px;
+    border-radius: 12px;
+    margin-top: 24px;
+  }
+  
+  .eth-send-title {
+    color: white;
+    margin-top: 0;
+  }
+  
+  .eth-send-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .eth-send-input {
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #374151;
+    background-color: #111827;
+    color: white;
+    font-size: 14px;
+  }
+  
+  .eth-send-button {
+    background-color: #3B82F6;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+  
+  .eth-send-button:hover {
+    background-color: #2563EB;
+  }
+  
+  .connect-message {
+    color: #9CA3AF;
+  }

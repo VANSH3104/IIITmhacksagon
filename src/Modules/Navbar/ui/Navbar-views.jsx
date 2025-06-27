@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { CustomWalletConnector } from '@/Config-connects/connect';
 import { useAccount } from 'wagmi';
 import { usePathname } from 'next/navigation';
-import { useUser } from '@/Hooks/useData';
+import { useUser } from '@/Hook/useData';
 
 export const Navbarviews = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);

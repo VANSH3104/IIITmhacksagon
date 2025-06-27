@@ -3,7 +3,7 @@ import "./globals.css";
 import { Providers } from "./Providers";
 import { RouteGuard } from "./routeguard";
 import { AnimatedBackground } from "./AnimatedBackground";
-import { UserProvider } from "@/Hooks/useData";
+import { UserProvider } from "@/Hook/useData";
 import { Navbarviews } from "@/Modules/Navbar/ui/Navbar-views";
 
 
