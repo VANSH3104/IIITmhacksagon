@@ -1,5 +1,11 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Providers } from "./Providers";
+import { RouteGuard } from "./routeguard";
+import { AnimatedBackground } from "./AnimatedBackground";
+import { UserProvider } from "@/Hooks/useData";
+import { Navbarviews } from "@/Modules/Navbar/ui/Navbar-views";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -20,9 +26,19 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden`}
       >
-        {children}
+        <Providers>
+          <RouteGuard>
+          <UserProvider>
+            <AnimatedBackground />
+            <Navbarviews />
+            <div className="relative z-10">
+              {children}
+            </div>
+            </UserProvider>
+          </RouteGuard>
+        </Providers>
       </body>
     </html>
   );
