@@ -6,7 +6,6 @@ import { AnimatedBackground } from "./AnimatedBackground";
 import { UserProvider } from "@/Hook/useData";
 import { Navbarviews } from "@/Modules/Navbar/ui/Navbar-views";
 
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -26,16 +25,18 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative`}
       >
         <Providers>
           <RouteGuard>
-          <UserProvider>
-            <AnimatedBackground />
-            <Navbarviews />
-            <div className="relative z-10">
-              {children}
-            </div>
+            <UserProvider>
+              <AnimatedBackground />
+              <div className="flex flex-col min-h-screen">
+                <Navbarviews />
+                <main className="flex-grow relative z-10">
+                  {children}
+                </main>
+              </div>
             </UserProvider>
           </RouteGuard>
         </Providers>
