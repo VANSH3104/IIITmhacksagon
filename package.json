@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@dicebear/collection": "^9.2.3",
+    "@dicebear/core": "^9.2.3",
     "@hookform/resolvers": "^5.1.1",
     "@radix-ui/react-accordion": "^1.2.11",
     "@radix-ui/react-alert-dialog": "^1.1.14",
@@ -53,6 +55,7 @@
     "react-day-picker": "^9.7.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.58.1",
+    "react-is": "^19.1.0",
     "react-resizable-panels": "^3.0.3",
     "recharts": "^3.0.2",
     "sonner": "^2.0.5",
