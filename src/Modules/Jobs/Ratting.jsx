@@ -27,8 +27,8 @@ export function Rating({ triggerButton, jobid }) {
   const [isLoading, setIsLoading] = useState(false);
   const [jobData, setJobData] = useState(null);
   const [workUrl, setWorkUrl] = useState("");
-  const [url , seturl] = useState("");
   const { currentJobid } = useJobStore();
+   const [submittedWorkUrl, setSubmittedWorkUrl] = useState("")
   const { userData } = useUser();
   const ETH_PRICE = 3500;
   const isClient = userData?.isClient === true;
@@ -37,7 +37,7 @@ export function Rating({ triggerButton, jobid }) {
   const usdAmount = jobData?.price ? Number(jobData.price) : null;
 
   useEffect(() => {
-    if (!jobid) return;
+    if (!currentJobid) return;
 
     const fetchJob = async () => {
       try {
@@ -58,7 +58,7 @@ export function Rating({ triggerButton, jobid }) {
     };
 
     fetchJob();
-  }, [jobid]);
+  }, [currentJobid]);
 
   const handleStarClick = (value) => {
     setRating(value);
@@ -103,9 +103,9 @@ export function Rating({ triggerButton, jobid }) {
       setIsLoading(true);
       const contract = await getContract();
       
-      if (!isClient && url !== "") {
-        
-        const urlTx = await contract.completeJob(jobid, url);
+      if (!isClient && submittedWorkUrl) {
+        console.log("Submitting work URL:", submittedWorkUrl, jobid);
+        const urlTx = await contract.completeJob(jobid, submittedWorkUrl);
         await urlTx.wait();
       }
 
@@ -127,7 +127,6 @@ export function Rating({ triggerButton, jobid }) {
     navigator.clipboard.writeText(jobData.workUrl);
     toast.success("URL copied to clipboard!");
   };
-  console.log("Job Data:", jobData);
 
   return (
     <Dialog>
@@ -184,8 +183,8 @@ export function Rating({ triggerButton, jobid }) {
               <Input
                 type="url"
                 placeholder="https://example.com/work"
-                value={url}
-                onChange={(e) => seturl(e.target.value)}
+                value={submittedWorkUrl}
+                onChange={(e) => setSubmittedWorkUrl(e.target.value)}
                 className="bg-slate-800/50 border-slate-700 text-white"
                 required
               />
@@ -236,7 +235,7 @@ export function Rating({ triggerButton, jobid }) {
             variant="fav"
             size="lg"
             className="w-full sm:w-auto text-white"
-            disabled={isLoading || rating === 0 || (!isClient && !workUrl)}
+            disabled={isLoading || rating === 0 || (!isClient && !submittedWorkUrl)}
           >
             {isLoading ? "Submitting..." : "Submit"}
           </Button>

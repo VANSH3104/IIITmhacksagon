@@ -2,19 +2,6 @@ export const CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_Address;
 
 export const CONTRACT_ABI = [
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_jobId",
-				"type": "uint256"
-			}
-		],
-		"name": "completeJob",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"inputs": [],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
@@ -61,65 +48,6 @@ export const CONTRACT_ABI = [
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_jobId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "_resume",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_bidAmount",
-				"type": "uint256"
-			}
-		],
-		"name": "applyForJob",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_jobId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "_freelancer",
-				"type": "address"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_applicationIndex",
-				"type": "uint256"
-			}
-		],
-		"name": "assignJob",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_jobId",
-				"type": "uint256"
-			}
-		],
-		"name": "cancelJob",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -144,29 +72,6 @@ export const CONTRACT_ABI = [
 		],
 		"name": "ContractUnpaused",
 		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "_title",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_description",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_price",
-				"type": "uint256"
-			}
-		],
-		"name": "createJob",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -257,34 +162,6 @@ export const CONTRACT_ABI = [
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_jobId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "_newTitle",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "_newDescription",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_newAmount",
-				"type": "uint256"
-			}
-		],
-		"name": "editJob",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -314,24 +191,6 @@ export const CONTRACT_ABI = [
 		],
 		"name": "FreelancerApplied",
 		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_jobId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "_rating",
-				"type": "uint256"
-			}
-		],
-		"name": "giveRating",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -508,6 +367,37 @@ export const CONTRACT_ABI = [
 			{
 				"indexed": true,
 				"internalType": "address",
+				"name": "sender",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "uint256",
+				"name": "messageId",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"internalType": "string",
+				"name": "content",
+				"type": "string"
+			},
+			{
+				"indexed": false,
+				"internalType": "uint256",
+				"name": "timestamp",
+				"type": "uint256"
+			}
+		],
+		"name": "NewMessage",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
 				"name": "previousOwner",
 				"type": "address"
 			},
@@ -522,13 +412,6 @@ export const CONTRACT_ABI = [
 		"type": "event"
 	},
 	{
-		"inputs": [],
-		"name": "pause",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -540,19 +423,6 @@ export const CONTRACT_ABI = [
 		],
 		"name": "Paused",
 		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_jobId",
-				"type": "uint256"
-			}
-		],
-		"name": "raiseDispute",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -586,69 +456,6 @@ export const CONTRACT_ABI = [
 		"type": "event"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "bool",
-				"name": "_isClient",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "_isFreelancer",
-				"type": "bool"
-			},
-			{
-				"internalType": "string",
-				"name": "_resume",
-				"type": "string"
-			}
-		],
-		"name": "registerUser",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "renounceOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_jobId",
-				"type": "uint256"
-			}
-		],
-		"name": "resolveDispute",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "newOwner",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "unpause",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"anonymous": false,
 		"inputs": [
 			{
@@ -660,29 +467,6 @@ export const CONTRACT_ABI = [
 		],
 		"name": "Unpaused",
 		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "bool",
-				"name": "_isClient",
-				"type": "bool"
-			},
-			{
-				"internalType": "bool",
-				"name": "_isFreelancer",
-				"type": "bool"
-			},
-			{
-				"internalType": "string",
-				"name": "_resume",
-				"type": "string"
-			}
-		],
-		"name": "updateProfile",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
 	},
 	{
 		"anonymous": false,
@@ -823,6 +607,45 @@ export const CONTRACT_ABI = [
 		"type": "event"
 	},
 	{
+		"inputs": [],
+		"name": "DISPUTE_VOTING_PERIOD",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "MAX_REPUTATION",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "MIN_REPUTATION_TO_VOTE",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [
 			{
 				"internalType": "uint256",
@@ -830,12 +653,53 @@ export const CONTRACT_ABI = [
 				"type": "uint256"
 			},
 			{
-				"internalType": "bool",
-				"name": "_supportsFreelancer",
-				"type": "bool"
+				"internalType": "string",
+				"name": "_resume",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_bidAmount",
+				"type": "uint256"
 			}
 		],
-		"name": "voteOnDispute",
+		"name": "applyForJob",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_jobId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_freelancer",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_applicationIndex",
+				"type": "uint256"
+			}
+		],
+		"name": "assignJob",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_jobId",
+				"type": "uint256"
+			}
+		],
+		"name": "cancelJob",
 		"outputs": [],
 		"stateMutability": "nonpayable",
 		"type": "function"
@@ -894,13 +758,65 @@ export const CONTRACT_ABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "DISPUTE_VOTING_PERIOD",
-		"outputs": [
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_jobId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_workUrl",
+				"type": "string"
+			}
+		],
+		"name": "completeJob",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_title",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_description",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_price",
+				"type": "uint256"
+			}
+		],
+		"name": "createJob",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
 			{
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "disputeVotes",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
 			}
 		],
 		"stateMutability": "view",
@@ -954,24 +870,28 @@ export const CONTRACT_ABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "_jobId",
 				"type": "uint256"
 			},
 			{
-				"internalType": "address",
-				"name": "",
-				"type": "address"
-			}
-		],
-		"name": "disputeVotes",
-		"outputs": [
+				"internalType": "string",
+				"name": "_newTitle",
+				"type": "string"
+			},
 			{
-				"internalType": "bool",
-				"name": "",
-				"type": "bool"
+				"internalType": "string",
+				"name": "_newDescription",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_newAmount",
+				"type": "uint256"
 			}
 		],
-		"stateMutability": "view",
+		"name": "editJob",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -1184,11 +1104,57 @@ export const CONTRACT_ABI = [
 						"internalType": "uint256",
 						"name": "completedAt",
 						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "workSubmissionUrl",
+						"type": "string"
 					}
 				],
 				"internalType": "struct OptimizedFreelancing.Job",
 				"name": "",
 				"type": "tuple"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_start",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_count",
+				"type": "uint256"
+			}
+		],
+		"name": "getMessages",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					},
+					{
+						"internalType": "uint40",
+						"name": "timestamp",
+						"type": "uint40"
+					},
+					{
+						"internalType": "string",
+						"name": "content",
+						"type": "string"
+					}
+				],
+				"internalType": "struct OptimizedFreelancing.Message[]",
+				"name": "",
+				"type": "tuple[]"
 			}
 		],
 		"stateMutability": "view",
@@ -1274,6 +1240,24 @@ export const CONTRACT_ABI = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_jobId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_rating",
+				"type": "uint256"
+			}
+		],
+		"name": "giveRating",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -1422,19 +1406,11 @@ export const CONTRACT_ABI = [
 				"internalType": "uint256",
 				"name": "completedAt",
 				"type": "uint256"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "MAX_REPUTATION",
-		"outputs": [
+			},
 			{
-				"internalType": "uint256",
-				"name": "",
-				"type": "uint256"
+				"internalType": "string",
+				"name": "workSubmissionUrl",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -1442,7 +1418,7 @@ export const CONTRACT_ABI = [
 	},
 	{
 		"inputs": [],
-		"name": "MIN_REPUTATION_TO_VOTE",
+		"name": "messageCount",
 		"outputs": [
 			{
 				"internalType": "uint256",
@@ -1468,6 +1444,13 @@ export const CONTRACT_ABI = [
 	},
 	{
 		"inputs": [],
+		"name": "pause",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "paused",
 		"outputs": [
 			{
@@ -1477,6 +1460,160 @@ export const CONTRACT_ABI = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_jobId",
+				"type": "uint256"
+			}
+		],
+		"name": "raiseDispute",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "recentMessages",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "sender",
+				"type": "address"
+			},
+			{
+				"internalType": "uint40",
+				"name": "timestamp",
+				"type": "uint40"
+			},
+			{
+				"internalType": "string",
+				"name": "content",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "_isClient",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "_isFreelancer",
+				"type": "bool"
+			},
+			{
+				"internalType": "string",
+				"name": "_resume",
+				"type": "string"
+			}
+		],
+		"name": "registerUser",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "renounceOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_jobId",
+				"type": "uint256"
+			}
+		],
+		"name": "resolveDispute",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_content",
+				"type": "string"
+			}
+		],
+		"name": "sendMessage",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "totalMessages",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "newOwner",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "unpause",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bool",
+				"name": "_isClient",
+				"type": "bool"
+			},
+			{
+				"internalType": "bool",
+				"name": "_isFreelancer",
+				"type": "bool"
+			},
+			{
+				"internalType": "string",
+				"name": "_resume",
+				"type": "string"
+			}
+		],
+		"name": "updateProfile",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -1526,6 +1663,24 @@ export const CONTRACT_ABI = [
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_jobId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "_supportsFreelancer",
+				"type": "bool"
+			}
+		],
+		"name": "voteOnDispute",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	}
 ]
