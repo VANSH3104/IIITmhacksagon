@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useJobStore } from "@/Hook/jobstore";
 import { useUser } from "@/Hook/useData";
-// import { JobIdViewClient } from "./Client/ui/Jobidui/Jobid-views-client";
+import { JobIdViewClient } from "./Client/ui/Jobidui/Jobid-views-client";
 import { JobIdViewFree } from "./freelancer/ui/Jobidui/Jobid-views";
 
 export const JobidShow = () => {
@@ -22,7 +22,7 @@ export const JobidShow = () => {
   return (
     <div>
       {userData?.isClient ? (
-        {/* <JobIdViewClient/> */}
+        <JobIdViewClient/>
       ) : (
         <div>
         <JobIdViewFree />
