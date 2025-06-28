@@ -7,6 +7,7 @@ import {
   Wallet, Shield, Users, Globe2, Lock, CheckCircle, TrendingUp, User, Briefcase, CpuIcon
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+
 import heroImg from './hero.png'; // Make sure this path is correct
 
 export default function DecentralizedFreelancePlatform() {
@@ -263,34 +264,30 @@ export default function DecentralizedFreelancePlatform() {
               </div>
             </div>
             <motion.div
-              className="flex-1 flex justify-center"
-              initial={{ opacity: 0, scale: 0.9, y: 40, rotate: -6 }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                y: [0, -16, 0, 16, 0],
-                rotate: [0, 3, 0, -3, 0],
-              }}
-              transition={{
-                duration: 6,
-                repeat: Infinity,
-                repeatType: "loop",
-                ease: "easeInOut",
-                opacity: { duration: 0.7, delay: 0.5 }
-              }}
-              whileHover={{
-                scale: 1.08,
-                rotate: 8,
-                boxShadow: "0 8px 40px 0 rgba(168,85,247,0.35)",
-                transition: { type: "spring", stiffness: 200 }
-              }}
-            >
-              <img
-                src={heroImg}
-                alt="Freelancer Hero"
-                className="rounded-3xl shadow-2xl w-80 h-80 object-cover border-4 border-purple-500/30"
-              />
-            </motion.div>
+  className="flex-1 flex justify-center"
+  initial={{ opacity: 0, scale: 0.9, y: 40, rotate: -6 }}
+  animate={{
+    opacity: 1,
+    scale: 1,
+    y: [0, -16, 0, 16, 0],
+    rotate: [0, 3, 0, -3, 0],
+  }}
+  transition={{
+    duration: 6,
+    repeat: Infinity,
+    repeatType: "loop",
+    ease: "easeInOut",
+    opacity: { duration: 0.7, delay: 0.5 }
+  }}
+>
+  {/* Add priority prop if this is your hero image */}
+  <img
+    src={'/hero.png'}
+    alt="Freelancer Hero"
+    className="rounded-3xl shadow-2xl w-80 h-80 object-cover border-4 border-purple-500/30"
+    priority // Important for above-the-fold images
+  />
+</motion.div>
           </div>
         </section>
 
