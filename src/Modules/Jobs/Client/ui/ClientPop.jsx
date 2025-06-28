@@ -73,30 +73,29 @@ export function ClientDialog({
   };
 
   const isEdit = mode === "edit";
-  console.log(initialData, "data");
   return (
     <Dialog>
       <DialogTrigger asChild>{triggerButton}</DialogTrigger>
-      <DialogOverlay className="bg-white/10 backdrop-blur-xl fixed inset-0 z-40" />
-      <DialogContent className="sm:max-w-[425px] backdrop-blur rounded-2xl p-6 shadow-2xl border border-white/20 bg-white/10 z-50">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-700 bg-clip-text text-transparent">
+      <DialogOverlay className="bg-black/40 backdrop-blur-xl fixed inset-0 z-40" />
+      <DialogContent className="sm:max-w-[430px] backdrop-blur-2xl rounded-2xl p-0 shadow-2xl border border-white/20 bg-gradient-to-br from-slate-900/90 via-purple-900/90 to-slate-900/90 z-50">
+        <DialogHeader className="px-6 pt-6 pb-2 border-b border-white/10 bg-gradient-to-r from-slate-900/80 via-purple-900/80 to-slate-900/80 rounded-t-2xl">
+          <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             {mode === "create"
               ? "Post a Job"
               : mode === "edit"
               ? "Edit Job"
               : "View Job"}
           </DialogTitle>
-          <DialogDescription className="text-slate-400">
-            {"Enter job details and budget in USD"}
+          <DialogDescription className="text-slate-400 mt-1">
+            Enter job details and budget in USD
           </DialogDescription>
         </DialogHeader>
 
-        <div className="grid gap-5 py-4 text-white">
+        <div className="grid gap-5 py-6 px-6 text-white">
           <div className="grid gap-2">
             <Label
               htmlFor="title"
-              className="text-slate-300 font-bold md:text-lg"
+              className="text-slate-300 font-bold md:text-base"
             >
               Job Title
             </Label>
@@ -105,14 +104,16 @@ export function ClientDialog({
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="bg-slate-800 text-white p-2 rounded-md border border-slate-700 focus:outline-none"
+              className="bg-slate-800/80 text-white p-2.5 rounded-lg border border-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-400/40 transition-all"
+              placeholder="e.g. Frontend Developer"
+              maxLength={60}
             />
           </div>
 
           <div className="grid gap-2">
             <Label
               htmlFor="description"
-              className="text-slate-300 font-bold md:text-lg"
+              className="text-slate-300 font-bold md:text-base"
             >
               Description
             </Label>
@@ -120,27 +121,31 @@ export function ClientDialog({
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="bg-slate-800 text-white p-2 rounded-md border border-slate-700 focus:outline-none"
+              className="bg-slate-800/80 text-white p-2.5 rounded-lg border border-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-400/40 transition-all min-h-[80px]"
+              placeholder="Describe the job requirements..."
+              maxLength={500}
             />
           </div>
 
           <div className="grid gap-2">
             <Label
               htmlFor="usdPrice"
-              className="text-slate-300 font-bold md:text-lg"
+              className="text-slate-300 font-bold md:text-base"
             >
               Price in USD ($)
             </Label>
             <input
               id="usdPrice"
               type="number"
-              value={Number(usdPrice)}
+              value={usdPrice}
               onChange={(e) => setUsdPrice(e.target.value)}
-              className="bg-slate-800 text-white p-2 rounded-md border border-slate-700 focus:outline-none"
+              className="bg-slate-800/80 text-white p-2.5 rounded-lg border border-slate-700 focus:outline-none focus:ring-2 focus:ring-purple-400/40 transition-all"
+              placeholder="e.g. 1000"
+              min={1}
             />
           </div>
 
-          <div className="flex items-center justify-between text-green-400 font-semibold">
+          <div className="flex items-center justify-between text-green-400 font-semibold bg-slate-800/60 rounded-lg px-3 py-2 mt-1">
             <div className="flex items-center gap-2">
               {ethValue !== "0" ? (
                 <CheckCircle className="w-5 h-5 text-green-400" />
@@ -149,67 +154,44 @@ export function ClientDialog({
               )}
               <span>{ethValue} ETH</span>
             </div>
-            <span className="text-sm text-slate-400">
+            <span className="text-xs text-slate-400">
               (1 ETH = ${ETH_RATE})
             </span>
           </div>
         </div>
 
-        {!isEdit ? (
-          <DialogFooter className="gap-3">
-            <DialogClose asChild>
-              <Button
-                variant="outline"
-                className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
-                disabled={isLoading}
-              >
-                Cancel
-              </Button>
-            </DialogClose>
+        <DialogFooter className="gap-3 px-6 pb-6">
+          <DialogClose asChild>
             <Button
-              onClick={handleCreate}
-              variant="fav"
-              size="lg"
-              className="text-white"
-              disabled={
-                isLoading ||
-                !title ||
-                !description ||
-                !usdPrice ||
-                ethValue === "0"
-              }
+              variant="outline"
+              className="border-slate-700 text-white bg-black hover:bg-slate-900 hover:text-blue-400 transition-all duration-200"
+              disabled={isLoading}
             >
-              {isLoading ? "Processing..." : "Create Job"}
+              Cancel
             </Button>
-          </DialogFooter>
-        ) : (
-          <DialogFooter className="gap-3">
-            <DialogClose asChild>
-              <Button
-                variant="outline"
-                className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
-                disabled={isLoading}
-              >
-                Cancel
-              </Button>
-            </DialogClose>
-            <Button
-              onClick={handleCreate}
-              variant="fav"
-              size="lg"
-              className="text-white"
-              disabled={
-                isLoading ||
-                !title ||
-                !description ||
-                !usdPrice ||
-                ethValue === "0"
-              }
-            >
-              {isLoading ? "Processing..." : "Update Job"}
-            </Button>
-          </DialogFooter>
-        )}
+          </DialogClose>
+          <Button
+            onClick={handleCreate}
+            variant="fav"
+            size="lg"
+            className="text-white bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-lg hover:shadow-pink-500/20 transition-all"
+            disabled={
+              isLoading ||
+              !title ||
+              !description ||
+              !usdPrice ||
+              ethValue === "0"
+            }
+          >
+            {isLoading
+              ? mode === "edit"
+                ? "Updating..."
+                : "Posting..."
+              : mode === "edit"
+              ? "Update Job"
+              : "Create Job"}
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );
