@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import { useState } from "react";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -11,10 +11,10 @@ import {
   DialogTrigger,
   DialogFooter,
   DialogOverlay
-} from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
-import { Briefcase, User, Upload } from "lucide-react"
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Briefcase, User, Upload, Loader2, CheckCircle, XCircle } from "lucide-react";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { getContract } from "@/Hook/useContract";
 
 export function UpdateProfile() {
@@ -22,6 +22,7 @@ export function UpdateProfile() {
   const [resumeFile, setResumeFile] = useState(null);
   const [resumeString, setResumeString] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [status, setStatus] = useState({ type: null, message: "" });
 
   const isFreelancer = profileType === "freelancer";
 
@@ -30,24 +31,26 @@ export function UpdateProfile() {
     if (!file) return;
 
     if (file.type !== "application/pdf") {
-      alert("Please upload a PDF file");
+      setStatus({ type: "error", message: "Please upload a PDF file" });
       return;
     }
 
     if (file.size > 2 * 1024 * 1024) {
-      alert("File size must be less than 2MB");
+      setStatus({ type: "error", message: "File size must be less than 2MB" });
       return;
     }
 
     setResumeFile(file);
     setIsLoading(true);
+    setStatus({ type: "loading", message: "Processing resume..." });
 
     try {
       const base64String = await convertToBase64(file);
       setResumeString(base64String);
+      setStatus({ type: "success", message: "Resume uploaded successfully!" });
     } catch (error) {
       console.error("File conversion error:", error);
-      alert("Error processing file");
+      setStatus({ type: "error", message: "Error processing file" });
       setResumeFile(null);
     } finally {
       setIsLoading(false);
@@ -65,82 +68,113 @@ export function UpdateProfile() {
   
   const UpdateUser = async () => {
     if (isFreelancer && !resumeString) {
-      alert("Please upload your resume");
+      setStatus({ type: "error", message: "Please upload your resume" });
       return;
     }
 
     setIsLoading(true);
+    setStatus({ type: "loading", message: "Updating profile..." });
 
     try {
       const contract = await getContract();
       
-      console.log("Registering with:", {
-        isClient: !isFreelancer,
-        isFreelancer,
-        resume: isFreelancer ? resumeString : ""
-      });
-
       const tx = await contract.updateProfile(
         !isFreelancer,  // _isClient
         isFreelancer,   // _isFreelancer
         isFreelancer ? resumeString : ""  // _resume
       );
 
-      console.log("Transaction hash:", tx.hash);
-      
       await tx.wait();
-      console.log("Registration successful");
-      setProfileType("freelancer");
-      setResumeFile(null);
-      setResumeString("");
       
-      alert("Profile created successfully!");
+      setStatus({ type: "success", message: "Profile updated successfully!" });
+      setTimeout(() => {
+        setProfileType("freelancer");
+        setResumeFile(null);
+        setResumeString("");
+        setStatus({ type: null, message: "" });
+      }, 2000);
     } catch (error) {
-        console.error("Registration failed:", error);
-        const msg = error?.error?.message ?? error?.shortMessage ?? error?.message ?? "Unknown error";
-        alert(`Registration failed: ${msg}`);
+      console.error("Update failed:", error);
+      const msg = error?.error?.message ?? error?.shortMessage ?? error?.message ?? "Unknown error";
+      setStatus({ type: "error", message: `Update failed: ${msg}` });
     } finally {
       setIsLoading(false);
     }
   };
 
+  const StatusIndicator = () => {
+    if (!status.type) return null;
+    
+    const Icon = {
+      loading: Loader2,
+      success: CheckCircle,
+      error: XCircle
+    }[status.type];
+
+    const color = {
+      loading: "text-blue-400",
+      success: "text-green-400",
+      error: "text-red-400"
+    }[status.type];
+
+    return (
+      <div className={`flex items-center gap-2 p-3 rounded-lg ${color} ${
+        status.type === 'error' ? 'bg-red-900/20' : 'bg-white/5'
+      }`}>
+        <Icon className={`w-5 h-5 ${status.type === 'loading' ? 'animate-spin' : ''}`} />
+        <span className="text-sm font-medium">{status.message}</span>
+      </div>
+    );
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="fav" size="maxi" className="w-full">
+        <Button 
+          variant="fav" 
+          size="maxi" 
+          className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 shadow-lg hover:shadow-purple-500/20 transition-all"
+        >
           Update Profile
         </Button>
       </DialogTrigger>
-       <DialogOverlay className="bg-white/10 backdrop-blur-xl fixed inset-0 z-40" />
-      <DialogContent className="sm:max-w-[425px] backdrop-blur rounded-2xl p-6 shadow-2xl border border-white/20 bg-white/10 z-50">
+      
+      <DialogOverlay className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm" />
+      
+      <DialogContent className="sm:max-w-[450px] backdrop-blur-xl rounded-2xl p-6 shadow-2xl border border-white/20 bg-gradient-to-br from-slate-900/90 to-slate-800/90">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+          <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
             Update Your Profile
           </DialogTitle>
-          <DialogDescription className="text-slate-400">
-            Set up your professional profile to get started
+          <DialogDescription className="text-slate-300/80">
+            Modify your professional identity
           </DialogDescription>
         </DialogHeader>
-        
-        <div className="grid gap-6 py-4 text-white">
+
+        <div className="grid gap-5 py-4 text-white">
+          <StatusIndicator />
+          
           <div className="space-y-3">
-            <Label className="text-slate-300 font-bold md:text-xl">I am a:</Label>
-            <ToggleGroup 
-              type="single" 
+            <Label className="text-slate-300 font-medium flex items-center gap-2">
+              <User className="w-4 h-4" />
+              I am a:
+            </Label>
+            <ToggleGroup
+              type="single"
               value={profileType}
-              onValueChange={setProfileType}
-              className="grid grid-cols-2 gap-2"
+              onValueChange={val => val && setProfileType(val)}
+              className="grid grid-cols-2 gap-3"
             >
-              <ToggleGroupItem 
-                value="freelancer" 
-                className="data-[state=on]:bg-purple-600 data-[state=on]:text-white data-[state=on]:border-purple-400 border border-slate-700 md:text-lg font-bold"
+              <ToggleGroupItem
+                value="freelancer"
+                className="data-[state=on]:bg-gradient-to-br data-[state=on]:from-purple-600/80 data-[state=on]:to-purple-700/80 data-[state=on]:text-white data-[state=on]:border-purple-400/50 border border-slate-700/50 hover:bg-slate-700/30 transition-all h-12"
               >
                 <User className="w-4 h-4 mr-2" />
                 Freelancer
               </ToggleGroupItem>
-              <ToggleGroupItem 
-                value="client" 
-                className="data-[state=on]:bg-purple-600 data-[state=on]:text-white data-[state=on]:border-blue-400 border border-slate-700 md:text-lg font-bold"
+              <ToggleGroupItem
+                value="client"
+                className="data-[state=on]:bg-gradient-to-br data-[state=on]:from-blue-600/80 data-[state=on]:to-blue-700/80 data-[state=on]:text-white data-[state=on]:border-blue-400/50 border border-slate-700/50 hover:bg-slate-700/30 transition-all h-12"
               >
                 <Briefcase className="w-4 h-4 mr-2" />
                 Client
@@ -150,31 +184,35 @@ export function UpdateProfile() {
 
           {isFreelancer && (
             <div className="grid gap-3">
-              <Label htmlFor="resume" className="text-slate-300 md:text-xl">
+              <Label htmlFor="resume" className="text-slate-300 flex items-center gap-2">
+                <Upload className="w-4 h-4" />
                 Resume (PDF, max 2MB)
               </Label>
               <div className="flex items-center gap-2">
-                <label 
+                <label
                   htmlFor="resume"
-                  className={`flex-1 flex items-center justify-center px-4 py-2 rounded-md border-2 border-dashed ${
-                    resumeFile ? "border-green-500" : "border-slate-700"
-                  } bg-slate-800 hover:bg-slate-700/50 cursor-pointer transition-colors`}
+                  className={`flex-1 flex items-center justify-center px-4 py-3 rounded-lg border-2 border-dashed ${
+                    resumeFile ? "border-green-400/50 bg-green-900/10" : "border-slate-700/50 hover:border-slate-600/50"
+                  } bg-slate-800/30 hover:bg-slate-700/30 cursor-pointer transition-all`}
                 >
                   {isLoading ? (
-                    <span className="text-slate-400">Processing...</span>
+                    <div className="flex items-center gap-2">
+                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <span className="text-slate-400">Processing...</span>
+                    </div>
                   ) : (
-                    <>
-                      <Upload className="w-4 h-4 mr-2 text-slate-400" />
-                      <span className="md:text-lg text-sm text-slate-400">
-                        {resumeFile ? resumeFile.name : "Upload file"}
+                    <div className="flex items-center gap-2">
+                      <Upload className="w-4 h-4 text-slate-400" />
+                      <span className="text-slate-300">
+                        {resumeFile ? resumeFile.name : "Choose file"}
                       </span>
-                    </>
+                    </div>
                   )}
-                  <input 
-                    id="resume" 
-                    type="file" 
-                    accept=".pdf" 
-                    className="hidden" 
+                  <input
+                    id="resume"
+                    type="file"
+                    accept=".pdf"
+                    className="hidden"
                     onChange={handleFileChange}
                     disabled={isLoading}
                   />
@@ -186,22 +224,25 @@ export function UpdateProfile() {
 
         <DialogFooter className="gap-2 sm:gap-3">
           <DialogClose asChild>
-            <Button 
-              variant="outline" 
-              className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
+            <Button
+              variant="outline"
+              className="border-slate-700/50 bg-slate-800/70 hover:bg-slate-700/80 text-slate-200 hover:text-white transition-all"
               disabled={isLoading}
             >
               Cancel
             </Button>
           </DialogClose>
-          <Button 
+          <Button
             onClick={UpdateUser}
             variant="fav"
             size="lg"
-            className="text-white"
+            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white shadow-lg hover:shadow-purple-500/20 transition-all"
             disabled={isLoading || (isFreelancer && !resumeString)}
           >
-            {isLoading ? "Processing..." : "Update Profile"}
+            {isLoading ? (
+              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+            ) : null}
+            {isLoading ? "Updating..." : "Update Profile"}
           </Button>
         </DialogFooter>
       </DialogContent>
