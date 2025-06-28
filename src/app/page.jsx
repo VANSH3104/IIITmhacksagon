@@ -341,13 +341,13 @@ export default function DecentralizedFreelancePlatform() {
                   transition={{ duration: 0.6, delay: 0.2 }}
                   viewport={{ once: true }}
                 >
-                  <h5 className="text-xl font-bold mb-4">Traditional Platforms vs DeFiLance</h5>
+                  <h5 className="text-xl font-bold mb-4">Traditional Platforms vs FreeLanceX</h5>
                   <div className="space-y-6">
                     {[
-                      { title: "Fees", traditional: "20-30%", defilance: "0%" },
-                      { title: "Payments", traditional: "Days/Weeks", defilance: "Instant" },
-                      { title: "Account Control", traditional: "Platform can ban", defilance: "You own your account" },
-                      { title: "Disputes", traditional: "Platform decides", defilance: "Community DAO" },
+                      { title: "Fees", traditional: "20-30%", freelancex: "0%" },
+                      { title: "Payments", traditional: "Days/Weeks", freelancex: "Instant" },
+                      { title: "Account Control", traditional: "Platform can ban", freelancex: "You own your account" },
+                      { title: "Disputes", traditional: "Platform decides", freelancex: "Community DAO" },
                     ].map((item, i) => (
                       <div key={i}>
                         <h6 className="text-sm text-white/50 mb-1">{item.title}</h6>
@@ -357,8 +357,8 @@ export default function DecentralizedFreelancePlatform() {
                             <p className="font-bold text-red-400">{item.traditional}</p>
                           </div>
                           <div className="flex-1 bg-green-900/30 p-3 rounded-lg">
-                            <p className="text-sm text-white/70 mb-1">DeFiLance</p>
-                            <p className="font-bold text-green-400">{item.defilance}</p>
+                            <p className="text-sm text-white/70 mb-1">FreeLanceX</p>
+                            <p className="font-bold text-green-400">{item.freelancex}</p>
                           </div>
                         </div>
                       </div>
@@ -618,7 +618,7 @@ export default function DecentralizedFreelancePlatform() {
           <div className="max-w-4xl mx-auto text-center">
             <motion.h3 
               className="text-3xl md:text-4xl font-bold mb-6"
-              initial={{ opacity: 0, y: 20 }}
+              initial
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}

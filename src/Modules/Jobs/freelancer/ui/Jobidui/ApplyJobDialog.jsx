@@ -94,7 +94,7 @@ export function ApplyJobDialog({ jobId }) {
           <DialogClose asChild>
             <Button 
               variant="outline" 
-              className="border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white"
+              className="border-black bg-black text-white hover:bg-red-500 hover:text-white hover:border-red-500 transition-colors"
               disabled={isLoading}
             >
               Cancel

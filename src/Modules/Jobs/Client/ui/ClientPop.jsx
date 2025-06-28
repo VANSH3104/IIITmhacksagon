@@ -167,7 +167,7 @@ export function ClientDialog({
               className="border-slate-700 text-white bg-black hover:bg-slate-900 hover:text-blue-400 transition-all duration-200"
               disabled={isLoading}
             >
-              Cancel
+              Cancell
             </Button>
           </DialogClose>
           <Button
