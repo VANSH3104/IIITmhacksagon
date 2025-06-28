@@ -4,7 +4,7 @@ import { Providers } from "./Providers";
 import { RouteGuard } from "./routeguard";
 import { AnimatedBackground } from "./AnimatedBackground";
 import { UserProvider } from "@/Hook/useData";
-import { Navbarviews } from "@/Modules/Navbar/ui/Navbar-views";
+import { Navbarviews } from "@/Modules/Navbar/ui/Navbar-views.jsx";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
