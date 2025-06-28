@@ -120,7 +120,7 @@ export const ProfileView = () => {
 
   return (
     <motion.div
-      className="h-full z-10 w-full flex flex-col items-center py-10 px-4 sm:px-6 lg:px-8"
+      className="h-full z-10 w-full flex flex-col items-center py-15 px-4 sm:px-6 lg:px-8 "
       initial={{ opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6 }}
