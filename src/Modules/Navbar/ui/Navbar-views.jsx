@@ -116,14 +116,14 @@ export const Navbarviews = () => {
                   </Link>
                   
                   <Link 
-                    href="/about" 
+                    href="/chat" 
                     className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300 group ${
-                      pathname.startsWith('/about') 
+                      pathname.startsWith('/chat') 
                         ? 'text-purple-300 bg-purple-500/20 shadow-lg' 
                         : 'text-gray-300 hover:text-white hover:bg-white/5'
                     }`}
                   >
-                    <span className="relative z-10">About</span>
+                    <span className="relative z-10">Chat</span>
                     {pathname.startsWith('/about') && (
                       <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 to-purple-600/30 rounded-lg"></div>
                     )}
@@ -298,9 +298,9 @@ export const Navbarviews = () => {
               </Link>
               
               <Link
-                href="/about"
+                href="/chat"
                 className={`flex items-center px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                  pathname.startsWith('/about') 
+                  pathname.startsWith('/chat') 
                     ? 'text-purple-300 bg-gradient-to-r from-purple-500/20 to-purple-600/20 shadow-lg border border-purple-500/30' 
                     : 'text-gray-300 hover:text-white hover:bg-white/5'
                 }`}
@@ -309,7 +309,7 @@ export const Navbarviews = () => {
                 <svg className="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                About
+                Chat
               </Link>
             </>
           ) : null}
