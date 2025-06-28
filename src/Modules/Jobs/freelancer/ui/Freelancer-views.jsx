@@ -1,7 +1,7 @@
 "use client";
 import { JobWithFilter } from "../../ui/Jobsfilterwith";
 import { useAccount } from "wagmi";
-import { Wallet, Briefcase } from "lucide-react";
+import { Wallet, Briefcase, Search, X } from "lucide-react";
 import { useUser } from "@/Hook/useData";
 import { useState } from "react";
 import { FilterJob } from "../../ui/Jobfilter";
@@ -13,49 +13,155 @@ export const FreelancerViews = () => {
   const { userData } = useUser();
   const [check, setCheck] = useState(false);
   const [filter, setFilters] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const clearAllFilters = () => {
+    setCheck(false);
+    setFilters(null);
+    setSearchTerm('');
+  };
+
   return (
-    <div className="min-h-screen">
-      <div className="p-6 mx-auto text-white">
-        <div className="bg-gradient-to-r from-slate-800/60 to-slate-700/40 backdrop-blur-lg border border-slate-700/50 rounded-2xl p-8 shadow-2xl max-w-7xl mx-auto hover:border-slate-600/50 transition-all duration-300">
-          <div className="flex justify-between">
-            <div className="flex gap-3">
-              <Briefcase className="w-6 h-6 text-purple-400" />
-              <h2 className="text-xl font-semibold text-white">All Jobs</h2>
-            </div>
-            <div className="flex gap-3">
-              <div className="flex flex-col gap-6 p-3">
-                <div className="flex items-center gap-3">
-                  <Checkbox
-                    checked={check}
-                    onCheckedChange={(value) => setCheck(value)}
-                    id="terms"
-                  />
-                  <Label htmlFor="terms">Your Jobs</Label>
-                </div>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      <div className="container mx-auto px-4 py-6 text-white">
+        {/* Header Section */}
+        <div className="mb-8">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shadow-lg">
+                <Briefcase className="w-6 h-6 text-white" />
               </div>
-              <FilterJob onFilterChange={(filter) => setFilters(filter)} />
+              <div>
+                <h1 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-white to-purple-200 bg-clip-text text-transparent">
+                  Explore Jobs
+                </h1>
+                <p className="text-slate-300 mt-1">
+                  Find opportunities tailored for you
+                </p>
+              </div>
+            </div>
+            
+            {/* Search Bar */}
+            <div className="relative w-full lg:w-96">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-purple-400" />
+              <input
+                type="text"
+                placeholder="Search jobs..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-11 pr-4 py-3 bg-slate-800/80 border border-slate-700 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all"
+              />
+              {searchTerm && (
+                <button
+                  onClick={() => setSearchTerm('')}
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-white"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
             </div>
           </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-6 shadow-xl">
+          {/* Controls Section */}
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6">
+            {/* Left Side Controls */}
+            <div className="flex flex-wrap items-center gap-4">
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  checked={check}
+                  onCheckedChange={(value) => setCheck(value)}
+                  id="your-jobs"
+                  className="data-[state=checked]:bg-purple-500 data-[state=checked]:border-purple-500"
+                />
+                <Label htmlFor="your-jobs" className="text-sm font-medium cursor-pointer text-slate-200">
+                  Show My Jobs Only
+                </Label>
+              </div>
+            </div>
+            
+            {/* Right Side Controls */}
+            <div className="flex items-center gap-3">
+              <FilterJob onFilterChange={(filter) => setFilters(filter)} />
+              {(check || filter?.status || searchTerm) && (
+                <button
+                  onClick={clearAllFilters}
+                  className="px-3 py-2 text-sm bg-slate-600 hover:bg-slate-500 rounded-lg transition-colors"
+                >
+                  Clear All
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Active Filters Display */}
+          {(check || filter?.status || searchTerm) && (
+            <div className="mb-4 flex flex-wrap gap-2">
+              {searchTerm && (
+                <span className="inline-flex items-center gap-2 px-3 py-1 bg-blue-500/20 text-blue-200 rounded-full text-sm">
+                  Search: "{searchTerm}"
+                  <button
+                    onClick={() => setSearchTerm('')}
+                    className="hover:bg-blue-400/30 rounded-full p-0.5"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              )}
+              {check && (
+                <span className="inline-flex items-center gap-2 px-3 py-1 bg-purple-500/20 text-purple-200 rounded-full text-sm">
+                  My Jobs
+                  <button
+                    onClick={() => setCheck(false)}
+                    className="hover:bg-purple-400/30 rounded-full p-0.5"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              )}
+              {filter?.status && (
+                <span className="inline-flex items-center gap-2 px-3 py-1 bg-emerald-500/20 text-emerald-200 rounded-full text-sm">
+                  Status Filter
+                  <button
+                    onClick={() => setFilters(null)}
+                    className="hover:bg-emerald-400/30 rounded-full p-0.5"
+                  >
+                    <X className="w-3 h-3" />
+                  </button>
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* Content Section */}
           {address ? (
-            <div className="max-h-[80vh] rounded-xl overflow-y-auto ">
+            <div className="max-h-[calc(100vh-300px)] overflow-y-auto rounded-xl bg-slate-900/30 p-4 space-y-4">
               {check ? (
                 <JobWithFilter
                   freelancerFilter={address}
                   statusFilter={filter?.status}
+                  searchTerm={searchTerm}
+                  cardClassName="w-full"
                 />
               ) : (
-                <JobWithFilter statusFilter={0} />
+                <JobWithFilter
+                  statusFilter={0}
+                  searchTerm={searchTerm}
+                  cardClassName="w-full"
+                />
               )}
             </div>
           ) : (
             <div className="text-center py-16">
-              <div className="w-20 h-20 bg-slate-700/50 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Wallet className="w-10 h-10 text-slate-400" />
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Wallet className="w-8 h-8 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">
+              <h3 className="text-xl font-semibold text-slate-200 mb-2">
                 Wallet Not Connected
               </h3>
-              <p className="text-slate-400 max-w-md mx-auto">
+              <p className="text-slate-400 max-w-sm mx-auto">
                 Please connect your wallet to view and manage your job postings
               </p>
             </div>

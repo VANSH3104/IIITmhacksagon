@@ -7,6 +7,7 @@ import { UpdateProfile } from "./updateProfile";
 import { useUser } from "@/Hook/useData";
 import { motion, AnimatePresence } from "framer-motion";
 
+
 export const ProfileView = () => {
   const { address } = useAccount();
   const { userData, loading, error } = useUser();

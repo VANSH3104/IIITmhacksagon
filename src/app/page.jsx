@@ -132,7 +132,7 @@ export default function DecentralizedFreelancePlatform() {
         <div className="flex items-center gap-2">
           <Zap className="w-6 h-6 text-purple-400" />
           <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-pink-300 bg-clip-text text-transparent">
-            DeFiLance
+            FreeLanceX
           </h1>
         </div>
         
@@ -303,7 +303,7 @@ export default function DecentralizedFreelancePlatform() {
             >
               <div className="inline-flex items-center gap-2 px-4 py-1 bg-purple-900/50 rounded-full text-sm mb-4">
                 <User className="w-4 h-4" />
-                <span>Member 1</span>
+                <span>Here we go !</span>
               </div>
               <h3 className="text-3xl font-bold mb-2">The Problem With Centralized Platforms</h3>
               <p className="text-white/70 max-w-2xl mx-auto">Why traditional freelancing platforms are broken</p>
@@ -382,7 +382,7 @@ export default function DecentralizedFreelancePlatform() {
             >
               <div className="inline-flex items-center gap-2 px-4 py-1 bg-purple-900/50 rounded-full text-sm mb-4">
                 <ShieldCheck className="w-4 h-4" />
-                <span>Member 2</span>
+                <span>Solution</span>
               </div>
               <h3 className="text-3xl font-bold mb-2">Our Decentralized Solution</h3>
               <p className="text-white/70 max-w-2xl mx-auto">How blockchain technology fixes freelancing</p>
@@ -503,7 +503,7 @@ export default function DecentralizedFreelancePlatform() {
             >
               <div className="inline-flex items-center gap-2 px-4 py-1 bg-purple-900/50 rounded-full text-sm mb-4">
                 <Rocket className="w-4 h-4" />
-                <span>Member 4</span>
+                <span>Vision</span>
               </div>
               <h3 className="text-3xl font-bold mb-2">The Future of Freelancing</h3>
               <p className="text-white/70 max-w-2xl mx-auto">Where we're going next</p>
@@ -678,7 +678,7 @@ export default function DecentralizedFreelancePlatform() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <Zap className="w-6 h-6 text-purple-400" />
-                <h3 className="text-xl font-bold">DeFiLance</h3>
+                <h3 className="text-xl font-bold">FreeLanceX</h3>
               </div>
               <p className="text-white/70 mb-4">
                 The future of freelancing is decentralized, transparent, and fair.
@@ -740,7 +740,7 @@ export default function DecentralizedFreelancePlatform() {
           </div>
           
           <div className="pt-8 border-t border-white/10 text-center text-white/50">
-            <p>© {new Date().getFullYear()} DeFiLance. All rights reserved.</p>
+            <p>© {new Date().getFullYear()} FreeLanceX. All rights reserved.</p>
           </div>
         </div>
       </motion.footer>
