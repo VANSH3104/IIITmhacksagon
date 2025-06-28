@@ -27,6 +27,7 @@ export function Rating({ triggerButton, jobid }) {
   const [isLoading, setIsLoading] = useState(false);
   const [jobData, setJobData] = useState(null);
   const [workUrl, setWorkUrl] = useState("");
+  const [url , seturl] = useState("");
   const { currentJobid } = useJobStore();
   const { userData } = useUser();
   const ETH_PRICE = 3500;
@@ -36,7 +37,7 @@ export function Rating({ triggerButton, jobid }) {
   const usdAmount = jobData?.price ? Number(jobData.price) : null;
 
   useEffect(() => {
-    if (!currentJobid) return;
+    if (!jobid) return;
 
     const fetchJob = async () => {
       try {
@@ -57,7 +58,7 @@ export function Rating({ triggerButton, jobid }) {
     };
 
     fetchJob();
-  }, [currentJobid]);
+  }, [jobid]);
 
   const handleStarClick = (value) => {
     setRating(value);
@@ -102,8 +103,9 @@ export function Rating({ triggerButton, jobid }) {
       setIsLoading(true);
       const contract = await getContract();
       
-      if (!isClient && workUrl) {
-        const urlTx = await contract.completeJob(jobid, workUrl);
+      if (!isClient && url !== "") {
+        
+        const urlTx = await contract.completeJob(jobid, url);
         await urlTx.wait();
       }
 
@@ -182,8 +184,8 @@ export function Rating({ triggerButton, jobid }) {
               <Input
                 type="url"
                 placeholder="https://example.com/work"
-                value={workUrl}
-                onChange={(e) => setWorkUrl(e.target.value)}
+                value={url}
+                onChange={(e) => seturl(e.target.value)}
                 className="bg-slate-800/50 border-slate-700 text-white"
                 required
               />
